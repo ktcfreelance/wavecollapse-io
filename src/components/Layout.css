@@ -1,0 +1,124 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  height: 70px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  color: var(--accent-cta);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.navbar-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-secondary);
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.network-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.sidebar-header {
+  padding: 0 24px 16px;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+}
+
+.nav-list {
+  list-style: none;
+  flex: 1;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover {
+  background: rgba(34, 197, 94, 0.05); /* accent-cta low opacity */
+  color: var(--text-primary);
+}
+
+.nav-link.active {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--accent-cta);
+  border-left-color: var(--accent-cta);
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-footer {
+  padding: 24px;
+}
+
+.content-area {
+  flex: 1;
+  background: radial-gradient(circle at top right, var(--bg-secondary), var(--bg-primary) 70%);
+  padding: 32px 48px;
+  overflow-y: auto;
+}
