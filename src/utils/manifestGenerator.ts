@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
 export type NodeType = 'validator' | 'archive' | 'facilitator';
+export type FacilitatorTier = 'tier1' | 'tier2';
 
 export interface NodeConfig {
   type: NodeType;
@@ -13,12 +14,14 @@ export interface NodeConfig {
   storageProvider?: string;
   s3Bucket?: string;
   s3Region?: string;
-  // Facilitator node fields
-  treasuryWallet?: string;
-  relaySpread?: number;
-  maxGasSubsidy?: number;
+  // Facilitator node fields (rebuilt per tokenomics whitepaper)
+  facilitatorTier?: FacilitatorTier;
+  waveCollateral?: number;
+  usdcCollateral?: number;
+  tier2PeerId?: string;
+  operatorRewardAddress?: string;
+  oracleRpc?: string;          // shared — facilitator uses for fiat bond display, validator for DTC
   // Validator DTC / Fiat-peg fields
-  oracleRpc?: string;
   fundingMode?: 'DEX' | 'OTC';
   otcContract?: string;
 }
@@ -40,7 +43,23 @@ export const generateManifest = async (config: NodeConfig) => {
   }
 
   if (config.type === 'facilitator') {
-    envFile += `WC_TREASURY=${config.treasuryWallet}\nWC_RELAY_SPREAD=${config.relaySpread}\nWC_MAX_SUBSIDY=${config.maxGasSubsidy}\n`;
+    const tier = config.facilitatorTier ?? 'tier1';
+    const dailyCap = tier === 'tier1' ? 100_000 : 0; // 0 = unlimited for tier2
+    envFile += `\n# ── Facilitator Node Configuration ──────────────────────────────────────\n`;
+    envFile += `WC_FACILITATOR_TIER=${tier}\n`;
+    envFile += `WC_FACILITATOR_FEE_BPS=3                     # Protocol-fixed. Do not modify.\n`;
+    envFile += `WC_WAVE_COLLATERAL=${config.waveCollateral ?? 0}\n`;
+    envFile += `WC_USDC_COLLATERAL=${config.usdcCollateral ?? 0}\n`;
+    envFile += `WC_OPERATOR_REWARD_ADDRESS=${config.operatorRewardAddress ?? ''}\n`;
+    if (tier === 'tier1') {
+      envFile += `WC_DAILY_VOLUME_CAP=${dailyCap}              # Tier 1 cap in USD\n`;
+      if (config.tier2PeerId) {
+        envFile += `WC_TIER2_PEER_ID=${config.tier2PeerId}   # Backbone spillover peer\n`;
+      }
+    }
+    if (config.oracleRpc) {
+      envFile += `WC_ORACLE_RPC=${config.oracleRpc}\n`;
+    }
   }
 
   if (config.type === 'validator') {
@@ -79,7 +98,15 @@ export const generateManifest = async (config: NodeConfig) => {
   }
 
   if (config.type === 'facilitator') {
-    composeTypeParams = `--node-type=relay --treasury=\${WC_TREASURY} --spread=\${WC_RELAY_SPREAD}`;
+    composeTypeParams = [
+      `--node-type=relay`,
+      `--tier=\${WC_FACILITATOR_TIER}`,
+      `--wave-collateral=\${WC_WAVE_COLLATERAL}`,
+      `--usdc-collateral=\${WC_USDC_COLLATERAL}`,
+      `--reward-address=\${WC_OPERATOR_REWARD_ADDRESS}`,
+      config.facilitatorTier === 'tier1' ? `--daily-cap=\${WC_DAILY_VOLUME_CAP}` : '',
+      config.tier2PeerId ? `--tier2-peer=\${WC_TIER2_PEER_ID}` : '',
+    ].filter(Boolean).join(' ');
   }
 
   if (config.type === 'validator') {
@@ -187,11 +214,10 @@ docker compose logs -f
       const azurePolicy = {
         "Name": "WaveCollapseWormArchiveRole",
         "IsCustom": true,
-        "Description": "Grants write and immutability lock permissions for WORM Azure Container",
+        "Description": "Grants write permissions for the WaveCollapse Archive Node Container",
         "Actions": [
           "Microsoft.Storage/storageAccounts/blobServices/containers/read",
-          "Microsoft.Storage/storageAccounts/blobServices/containers/write",
-          "Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies/write"
+          "Microsoft.Storage/storageAccounts/blobServices/containers/write"
         ],
         "NotActions": [],
         "DataActions": [
@@ -211,8 +237,7 @@ docker compose logs -f
             Effect: "Allow",
             Action: [
               "s3:PutObject",
-              "s3:GetObject",
-              "s3:PutObjectRetention"
+              "s3:GetObject"
             ],
             Resource: `arn:aws:s3:::${config.s3Bucket}/*`
           }

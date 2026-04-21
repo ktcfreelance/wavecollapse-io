@@ -219,7 +219,7 @@ export default function Validator() {
               <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
                 <strong style={{ color: 'var(--accent-orange, #ffaa00)' }}>Slippage Advisory:</strong>{' '}
                 Large purchases on a DEX AMM will move the price against you. For stake acquisitions
-                exceeding <strong>$500,000 USD</strong>, contact the{' '}
+                exceeding <strong>$50,000 USD</strong> (≈ half a minimum Validator stake), contact the{' '}
                 <strong>Institutional OTC Desk</strong> for a time-weighted, slippage-free allocation
                 directly from the Genesis Treasury.
               </p>
@@ -251,8 +251,32 @@ export default function Validator() {
           </div>
         )}
 
-        {/* ─── KEY GENERATION NOTICE ────────────────────────────────────────── */}
+        {/* ─── SLASHING GRADIENT ────────────────────────────────────────────── */}
         <div className="terminal-block" style={{marginTop: '24px'}}>
+          <div className="terminal-header" style={{ color: 'var(--accent-amber)' }}>
+            ⚠ SLASHING GRADIENT — KNOW YOUR RISK
+          </div>
+          <div style={{padding: '16px', fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.7}}>
+            <div style={{ display: 'grid', gridTemplateColumns: '140px 120px 1fr', gap: '8px 16px', marginBottom: 12 }}>
+              <span style={{ color: 'var(--accent-amber)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Soft Slash</span>
+              <span style={{ color: 'var(--teal-400)', fontFamily: 'var(--font-mono)' }}>0.1% – 1%</span>
+              <span>Liveness fault — missed consensus rounds or DTC absence. Node is jailed until SLA is restored.</span>
+              <span style={{ color: 'var(--accent-orange, #f97316)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Hard Slash</span>
+              <span style={{ color: 'var(--teal-400)', fontFamily: 'var(--font-mono)' }}>5% – 15%</span>
+              <span>Safety fault — vote inconsistency or accidental double-sign from backup server spin-up.</span>
+              <span style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>Catastrophic</span>
+              <span style={{ color: 'var(--teal-400)', fontFamily: 'var(--font-mono)' }}>100%</span>
+              <span>Coordinated malicious attack — GNN clique detection confirms collusion. Full principal revoked.</span>
+            </div>
+            <div style={{ padding: '10px 14px', background: 'rgba(23,207,174,0.05)', border: '1px solid rgba(23,207,174,0.15)', borderRadius: 6, fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>
+              Slashed $WAVE is <strong style={{ color: 'var(--teal-400)' }}>permanently burned to the zero address</strong> — not sent to the protocol treasury.
+              This is deflationary: every slashing event makes staked $WAVE mathematically scarcer, rewarding honest operators through scarcity.
+            </div>
+          </div>
+        </div>
+
+        {/* ─── KEY GENERATION NOTICE ────────────────────────────────────────── */}
+        <div className="terminal-block" style={{marginTop: '16px'}}>
           <div className="terminal-header">
             <Key size={14} /> BLS12-381 Auto-Generation
           </div>

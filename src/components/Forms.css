@@ -1,5 +1,7 @@
 .form-container {
-  max-width: 600px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 64px 20px;
 }
 
 .form-header {

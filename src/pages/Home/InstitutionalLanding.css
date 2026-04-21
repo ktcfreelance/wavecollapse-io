@@ -1,0 +1,207 @@
+/* ── InstitutionalLanding Styles ── */
+
+/* Hero */
+.hero-section {
+  position: relative;
+  padding: var(--space-24) 0 var(--space-20);
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(23,207,174,0.14) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+}
+
+.hero-headline {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.1;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.hero-sub {
+  font-size: 1.08rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: var(--space-8);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.hero-badges {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Metrics Bar */
+.metrics-bar {
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(23,207,174,0.03) 0%, transparent 100%);
+  padding: var(--space-10) 0;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-4);
+  border-left: 1px solid var(--border-subtle);
+}
+
+.metric-item:first-child {
+  border-left: none;
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-top: var(--space-1);
+}
+
+.metric-sub {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
+
+/* 5-Pillar Grid */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.pillar-card {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+  cursor: default;
+}
+
+.pillar-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-teal);
+  transform: translateY(-3px);
+}
+
+.pillar-card--highlight {
+  border-color: var(--border-strong);
+  background: rgba(23,207,174,0.04);
+}
+
+.pillar-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: rgba(23,207,174,0.08);
+  border: 1px solid rgba(23,207,174,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-400);
+}
+
+.pillar-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-400);
+}
+
+.pillar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pillar-desc {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.pillar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--teal-400);
+  text-decoration: none;
+  margin-top: auto;
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+
+.pillar-cta:hover {
+  color: var(--teal-300);
+  gap: 8px;
+}
+
+/* CTA Banner */
+.cta-banner {
+  padding: var(--space-12) var(--space-12);
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  overflow: hidden;
+}
+
+.cta-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cta-banner-visual {
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .pillar-grid { grid-template-columns: repeat(2, 1fr); }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta-banner { flex-direction: column; padding: var(--space-8); }
+  .cta-banner-visual { width: 100%; }
+  .cta-banner-visual .terminal-block { max-width: 100% !important; }
+}
+
+@media (max-width: 600px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .hero-actions { flex-direction: column; }
+  .metric-item { border-left: none; border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); }
+  .metric-item:first-child { border-top: none; padding-top: 0; }
+}
