@@ -41,7 +41,7 @@ export default function Archive() {
             value={storageProvider} 
             onChange={e => setStorageProvider(e.target.value)}
           >
-            <option value="aws">Amazon Web Services (S3 Object Lock)</option>
+            <option value="aws">Amazon Web Services (S3)</option>
             <option value="azure">Microsoft Azure (Immutable Blob)</option>
           </select>
         </div>
@@ -115,6 +115,14 @@ export default function Archive() {
           <button type="submit" className="btn-primary">
             <DownloadCloud size={18} /> GENERATE PAYLOAD
           </button>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginTop: 16, padding: '12px 16px', borderRadius: 8, background: 'rgba(23,207,174,0.04)', border: '1px solid rgba(23,207,174,0.12)' }}>
+          <span style={{ fontSize: '1rem', flexShrink: 0, marginTop: 1 }}>🔒</span>
+          <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-tertiary)', lineHeight: 1.6 }}>
+            <strong style={{ color: 'var(--teal-400)' }}>WaveCollapse never transmits your configuration.</strong>{' '}
+            All node manifests are generated locally in your browser. No data leaves this device.
+          </p>
         </div>
       </form>
     </div>
