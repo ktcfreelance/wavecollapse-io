@@ -580,12 +580,12 @@ export default function ValidatorPortal() {
                     Begin Phase 03 Onboarding <ChevronRight size={16} />
                   </Link>
                   <Link
-                    to="/build/node-wizard/validator"
+                    to="/build/node-wizard"
                     className="btn-secondary"
                     id="validator-portal-node-wizard-link"
                     style={{ flex: '1 1 auto' }}
                   >
-                    Configure Node First
+                    Apply to Operate
                   </Link>
                 </div>
 

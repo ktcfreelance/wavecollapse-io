@@ -46,7 +46,7 @@ const navSections: NavSection[] = [
     id: 'build',
     label: 'Build',
     items: [
-      { to: '/build/node-wizard', label: 'Node Wizard', description: 'Fast-track Validator, Archive & Facilitator setup', icon: <Terminal size={18} />, tag: '⚡ Fast Track' },
+      { to: '/build/node-wizard', label: 'Node Wizard', description: 'Apply to operate a WaveCollapse node', icon: <Terminal size={18} />, tag: '📋 Application' },
       { to: '/build/sandbox', label: 'Compliance Sandbox', description: 'Live ISO 20022 & KYT simulation environment', icon: <Cpu size={18} />, tag: 'New' },
       { to: '/build/sdk', label: 'TypeScript SDK', description: 'Typed client libraries for protocol integration', icon: <BookOpen size={18} /> },
     ],

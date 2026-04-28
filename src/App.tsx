@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 
 /* ── Suspense Fallback ── */
@@ -36,9 +36,6 @@ const Changelog = lazy(() => import('./pages/Protocol/Changelog'));
 
 /* ── Build ── */
 const NodeWizardHome = lazy(() => import('./pages/Build/NodeWizard'));
-const ValidatorWizard = lazy(() => import('./pages/Validator'));
-const ArchiveWizard   = lazy(() => import('./pages/Archive'));
-const FacilitatorWizard = lazy(() => import('./pages/Facilitator'));
 const ComplianceSandbox = lazy(() => import('./pages/Build/ComplianceSandbox'));
 const TypescriptSDK = lazy(() => import('./pages/Build/TypescriptSDK'));
 const ApiReference = lazy(() => import('./pages/Build/ApiReference'));
@@ -89,9 +86,7 @@ function App() {
 
           {/* Build */}
           <Route path="build/node-wizard"              element={<NodeWizardHome />} />
-          <Route path="build/node-wizard/validator"    element={<ValidatorWizard />} />
-          <Route path="build/node-wizard/archive"      element={<ArchiveWizard />} />
-          <Route path="build/node-wizard/facilitator"  element={<FacilitatorWizard />} />
+          <Route path="build/node-wizard/*"             element={<Navigate to="/build/node-wizard" replace />} />
           <Route path="build/sandbox"                  element={<ComplianceSandbox />} />
           <Route path="build/sdk"                      element={<TypescriptSDK />} />
           <Route path="build/api"                      element={<ApiReference />} />
