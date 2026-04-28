@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ClipboardList, Server, Key, CheckCircle2, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import Turnstile, { useTurnstile } from 'react-turnstile';
 
 const phases = [
   { icon: <ClipboardList size={22} />, num: '01', title: 'Readiness Assessment', desc: 'Complete a compliance questionnaire covering your regulatory posture, AML program status, and infrastructure tier.' },
@@ -17,6 +18,8 @@ export default function OnboardingIntake() {
   const [error, setError] = useState<string | null>(null);
   const [refId, setRefId] = useState<string | null>(null);
   const [form, setForm] = useState({ org: '', role: '', aum: '', regulator: '', use_case: '', email: '' });
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstile = useTurnstile();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +40,7 @@ export default function OnboardingIntake() {
       const res = await fetch(intakeUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
 
       const data = await res.json();
@@ -57,6 +60,8 @@ export default function OnboardingIntake() {
       );
     } finally {
       setIsSubmitting(false);
+      turnstile.reset();
+      setTurnstileToken('');
     }
   };
 
@@ -182,6 +187,7 @@ export default function OnboardingIntake() {
                 <textarea id="intake-usecase" className="form-input" rows={3}
                   placeholder="Describe your settlement use case or integration objective..."
                   value={form.use_case} onChange={e => setForm({ ...form, use_case: e.target.value })}
+                  maxLength={2000}
                   style={{ resize: 'vertical' }}
                   disabled={isSubmitting} />
               </div>
@@ -202,12 +208,21 @@ export default function OnboardingIntake() {
                   <a href="/legal/privacy" style={{ color: 'var(--teal-400)' }}>Privacy Policy</a>.
                 </label>
               </div>
+              {/* Turnstile Bot Protection */}
+              <div style={{ marginTop: 4 }}>
+                <Turnstile
+                  sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
+                  onVerify={(t: string) => setTurnstileToken(t)}
+                  onExpire={() => setTurnstileToken('')}
+                  theme="dark"
+                />
+              </div>
               <button
                 type="submit"
                 className="btn-primary"
                 id="intake-submit-btn"
                 style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 8 }}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !turnstileToken}
               >
                 {isSubmitting ? (
                   <>

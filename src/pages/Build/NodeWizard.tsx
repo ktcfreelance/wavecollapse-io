@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Cpu, Database, ShieldAlert, ArrowRight, Loader2, AlertCircle, CheckCircle2, Zap } from 'lucide-react';
+import Turnstile, { useTurnstile } from 'react-turnstile';
 
 const NODE_TYPE_OPTIONS = [
   { value: 'validator', label: 'Validator Node', icon: <Cpu size={16} />, badge: 'DTC Enabled' },
@@ -21,6 +22,8 @@ export default function NodeWizard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [refId, setRefId] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstile = useTurnstile();
 
   const toggleNodeType = (val: string) => {
     setForm(prev => ({
@@ -54,7 +57,7 @@ export default function NodeWizard() {
       const res = await fetch(applyUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
 
       const data = await res.json();
@@ -67,6 +70,8 @@ export default function NodeWizard() {
       setError(err instanceof Error ? err.message : 'Unable to submit application. Please try again.');
     } finally {
       setIsSubmitting(false);
+      turnstile.reset();
+      setTurnstileToken('');
     }
   };
 
@@ -330,6 +335,7 @@ export default function NodeWizard() {
                 <textarea id="app-additional" className="form-input" rows={3}
                   placeholder="Describe your integration objectives, compliance considerations, or questions..."
                   value={form.additional} onChange={e => setForm({ ...form, additional: e.target.value })}
+                  maxLength={2000}
                   style={{ resize: 'vertical' }} disabled={isSubmitting} />
               </div>
             </fieldset>
@@ -344,9 +350,19 @@ export default function NodeWizard() {
               </label>
             </div>
 
+            {/* Turnstile Bot Protection */}
+            <div style={{ marginTop: 4 }}>
+              <Turnstile
+                sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
+                onVerify={(t: string) => setTurnstileToken(t)}
+                onExpire={() => setTurnstileToken('')}
+                theme="dark"
+              />
+            </div>
+
             <button type="submit" className="btn-primary" id="app-submit-btn"
               style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 8 }}
-              disabled={isSubmitting}>
+              disabled={isSubmitting || !turnstileToken}>
               {isSubmitting ? (
                 <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Submitting…</>
               ) : (
