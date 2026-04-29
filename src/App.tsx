@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
+import InstitutionalGate from './components/InstitutionalGate';
 
 /* ── Suspense Fallback ── */
 function PageLoader() {
@@ -54,10 +55,9 @@ const Careers = lazy(() => import('./pages/Company/Careers'));
 
 /* ── Trust Hub ── */
 const SimulationReport = lazy(() => import('./pages/TrustHub/SimulationReport'));
-const Sec17a4Memo = lazy(() => import('./pages/TrustHub/Sec17a4Memo'));
 
 /* ── Legal ── */
-const RegulatoryDisclosures = lazy(() => import('./pages/Legal/RegulatoryDisclosures'));
+
 const PrivacyPolicy = lazy(() => import('./pages/Legal/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/Legal/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/Legal/CookiePolicy'));
@@ -105,10 +105,22 @@ function App() {
 
           {/* Trust Hub */}
           <Route path="trust/simulation" element={<SimulationReport />} />
-          <Route path="trust/sec17a4"    element={<Sec17a4Memo />} />
+          <Route path="trust/sec17a4" element={
+            <InstitutionalGate
+              title="SEC Rule 17a-4 Compliance Memo"
+              description="This document details WaveCollapse's Software-Defined WORM architecture and its alignment with SEC Rule 17a-4 record retention requirements. Access is restricted to credentialed institutional partners."
+              classification="RESTRICTED — INSTITUTIONAL ONLY"
+            />
+          } />
 
           {/* Legal */}
-          <Route path="legal"            element={<RegulatoryDisclosures />} />
+          <Route path="legal" element={
+            <InstitutionalGate
+              title="Regulatory Disclosures"
+              description="WaveCollapse regulatory positioning, GENIUS Act compliance strategy, and Technology Provider status documentation. Access is restricted to credentialed institutional partners."
+              classification="RESTRICTED — INSTITUTIONAL ONLY"
+            />
+          } />
           <Route path="legal/privacy"    element={<PrivacyPolicy />} />
           <Route path="legal/terms"      element={<TermsOfService />} />
           <Route path="legal/cookies"    element={<CookiePolicy />} />
