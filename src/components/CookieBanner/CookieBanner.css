@@ -6,7 +6,7 @@
   z-index: 9000;
   width: calc(100% - var(--space-8));
   max-width: 760px;
-  background: var(--glass-bg);
+  background: rgba(10, 15, 28, 0.95);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-strong);
