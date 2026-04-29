@@ -75,7 +75,7 @@ export default function Careers() {
         </div>
 
         {/* ── Culture ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 56 }}>
           {[
             { label: 'Systems Thinkers', desc: 'We reason about incentive design, not features. Every decision is evaluated for regulatory impact, security implications, and architectural coherence.' },
             { label: 'Compliance as Code', desc: 'We do not bolt on compliance after shipping. Regulatory requirements are first-class design inputs, not afterthoughts.' },

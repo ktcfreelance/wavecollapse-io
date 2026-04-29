@@ -111,6 +111,7 @@
 html {
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body {
@@ -126,6 +127,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ── Typography Scale ── */
@@ -654,7 +656,20 @@ pre {
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .container { padding: 0 var(--space-4); }
+  .container-sm { padding: 0 var(--space-4); }
   .section   { padding: var(--space-16) 0; }
+  .section-sm { padding: var(--space-10) 0; }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 0.82rem;
+  }
+
+  pre {
+    padding: var(--space-4);
+    font-size: 0.78rem;
+  }
 
   .kyt-tooltip {
     width: 240px;
@@ -669,5 +684,25 @@ pre {
     left: auto;
     right: 16px;
     transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 var(--space-3); }
+  .container-sm { padding: 0 var(--space-3); }
+  .section { padding: var(--space-12) 0; }
+  .section-sm { padding: var(--space-8) 0; }
+
+  h1 { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+  h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+  h3 { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+
+  .stat-number {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .badge {
+    font-size: 0.62rem;
+    padding: 2px var(--space-2);
   }
 }

@@ -128,7 +128,7 @@ export default function Facilitator() {
             <div className="terminal-header">
               <Zap size={13} /> {tierCfg.label}
             </div>
-            <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 24px', fontSize: '0.85rem' }}>
+            <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px 24px', fontSize: '0.85rem' }}>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Min $WAVE Bond:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.waveMin.toLocaleString()} $WAVE</strong></div>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Daily Cap:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.hasCap ? `$${tierCfg.dailyCap.toLocaleString()} USD` : 'Unlimited'}</strong></div>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Facilitator Fee:</span> <strong style={{ color: 'var(--teal-400)' }}>3 bps (protocol-fixed)</strong></div>
@@ -288,7 +288,7 @@ export default function Facilitator() {
         </div>
 
         {/* ─── NETWORK CONFIG ──────────────────────────────────────────────────── */}
-        <div className="form-group" style={{ display: 'flex', gap: 16 }}>
+        <div className="form-group" style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
           <div style={{ flex: 1 }}>
             <label className="form-label">NODE_ID</label>
             <input type="number" className="form-input" value={nodeId}

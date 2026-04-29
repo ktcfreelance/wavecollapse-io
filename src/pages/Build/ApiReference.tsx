@@ -78,7 +78,7 @@ export default function ApiReference() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Two credential tiers control access to different API surface areas.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 56 }}>
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}

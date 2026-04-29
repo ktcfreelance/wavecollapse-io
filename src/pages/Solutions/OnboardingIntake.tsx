@@ -76,7 +76,7 @@ export default function OnboardingIntake() {
         </p>
 
         {/* Phase Progress */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 48 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 48 }}>
           {phases.map((p, i) => (
             <div key={p.num} onClick={() => setPhase((i + 1) as Phase)}
               className={`glass-card ${phase === i + 1 ? 'glass-card-teal' : ''}`}
@@ -130,7 +130,7 @@ export default function OnboardingIntake() {
             )}
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
                 <div>
                   <label className="form-label" htmlFor="intake-org">Organization Name</label>
                   <input id="intake-org" className="form-input" required placeholder="Acme Financial Corp"
@@ -153,7 +153,7 @@ export default function OnboardingIntake() {
                   </select>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
                 <div>
                   <label className="form-label" htmlFor="intake-aum">AUM / Transaction Volume (USD)</label>
                   <select id="intake-aum" className="form-input" value={form.aum}

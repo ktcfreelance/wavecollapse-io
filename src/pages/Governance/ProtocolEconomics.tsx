@@ -88,7 +88,7 @@ export default function ProtocolEconomics() {
 
         {/* ── Token Classification ── */}
         <h2 style={{ marginBottom: 20 }}>Token <span className="gradient-text">Classification Matrix</span></h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 56 }}>
           <motion.div className="glass-card-teal" style={{ padding: 28 }}
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', fontWeight: 800, color: 'var(--teal-300)', marginBottom: 8 }}>$WAVE</div>
@@ -159,7 +159,7 @@ export default function ProtocolEconomics() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Every transaction cleared on WaveCollapse L1 incurs a 15 bps fee programmatically routed to the three network pillars.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 56 }}>
           {distribution.map((d, i) => (
             <motion.div key={d.label} className="glass-card" style={{ padding: 24, textAlign: 'center' }}
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
@@ -176,7 +176,7 @@ export default function ProtocolEconomics() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Fixed deflationary supply. Zero inflationary block rewards. Structured to prevent retail market manipulation.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 32 }}>
           {supply.map((s, i) => (
             <motion.div key={s.label} className="glass-card" style={{ padding: 24 }}
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}

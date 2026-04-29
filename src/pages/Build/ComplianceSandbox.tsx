@@ -100,7 +100,7 @@ export default function ComplianceSandbox() {
           Toggle parameters and observe real-time compliance gate outcomes.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32 }}>
           {/* Left: Controls */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             {/* ISO 20022 Fields */}

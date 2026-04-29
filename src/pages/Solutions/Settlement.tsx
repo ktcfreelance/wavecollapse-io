@@ -90,7 +90,7 @@ export default function Settlement() {
             <strong>DISCLAIMER:</strong> Latencies reflect network I/O and BFT consensus overhead measured within a 7-node Docker environment. Global production latency may vary based on geographic node distribution.
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 56 }}>
           {slaMetrics.map((m, i) => (
             <motion.div
               key={m.label}
@@ -133,7 +133,7 @@ export default function Settlement() {
           {fedwireSteps.map((step, i) => (
             <motion.div
               key={step.step}
-              style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < fedwireSteps.length - 1 ? '1px solid var(--border-subtle)' : 'none' }}
+              style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < fedwireSteps.length - 1 ? '1px solid var(--border-subtle)' : 'none', flexWrap: 'nowrap' }}
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -163,7 +163,7 @@ export default function Settlement() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           The full stack from client application to legacy banking rail.
         </p>
-        <div className="glass-card" style={{ padding: 32, marginBottom: 56 }}>
+        <div className="glass-card" style={{ padding: 'clamp(16px, 4vw, 32px)', marginBottom: 56 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {refArch.map((layer, i) => (
               <div key={layer.label} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -192,7 +192,7 @@ export default function Settlement() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Network security cannot be passive. Every layer of the settlement stack enforces a systemic immune response.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 56 }}>
           {complianceFeatures.map((f, i) => (
             <motion.div
               key={f.label}
@@ -213,7 +213,7 @@ export default function Settlement() {
         </div>
 
         {/* ── CTA ── */}
-        <div className="glass-card-teal" style={{ padding: 36, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+        <div className="glass-card-teal" style={{ padding: 'clamp(20px, 4vw, 36px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
           <div>
             <h3 style={{ marginBottom: 8 }}>Ready to Deploy Settlement Infrastructure?</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', margin: 0, maxWidth: 520 }}>

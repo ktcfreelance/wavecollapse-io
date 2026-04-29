@@ -152,7 +152,7 @@ export default function NodeWizard() {
               <legend style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 700, color: 'var(--teal-400)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 16 }}>
                 Organization Details
               </legend>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
                 <div>
                   <label className="form-label" htmlFor="app-org">Organization Name *</label>
                   <input id="app-org" className="form-input" required placeholder="Acme Financial Corp"
@@ -194,7 +194,7 @@ export default function NodeWizard() {
               <legend style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 700, color: 'var(--teal-400)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 16 }}>
                 Authorized Representative
               </legend>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
                 <div>
                   <label className="form-label" htmlFor="app-first">First Name *</label>
                   <input id="app-first" className="form-input" required placeholder="Jane"
@@ -228,7 +228,7 @@ export default function NodeWizard() {
               <legend style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 700, color: 'var(--teal-400)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 16 }}>
                 Node Interest *
               </legend>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 16 }}>
                 {NODE_TYPE_OPTIONS.map(n => {
                   const selected = form.node_types.includes(n.value);
                   return (

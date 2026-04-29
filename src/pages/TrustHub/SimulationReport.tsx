@@ -70,7 +70,7 @@ export default function SimulationReport() {
         </div>
 
         {/* Hero Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20, marginBottom: 20 }}>
           {[
             { val: '99.9%', label: 'Latency Reduction', sub: 'vs. DTCC T+2 baseline' },
             { val: '328.5ms', label: 'Measured P50 Finality', sub: 'Institutional TideBlock commit' },

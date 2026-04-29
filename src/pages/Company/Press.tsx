@@ -50,7 +50,7 @@ export default function Press() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Use these colors when representing WaveCollapse in editorial content.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 56 }}>
           {brandColors.map(c => (
             <motion.div
               key={c.name}
@@ -73,7 +73,7 @@ export default function Press() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 24 }}>
           WaveCollapse uses two purpose-specific typefaces across all materials.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginBottom: 56 }}>
           <div className="glass-card" style={{ padding: 24 }}>
             <div style={{ fontFamily: 'var(--font-sans)', fontSize: '1.4rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 6 }}>IBM Plex Sans</div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', marginBottom: 12 }}>Body text · UI labels · Descriptions</div>
@@ -135,7 +135,7 @@ export default function Press() {
 
         {/* ── Press Contacts ── */}
         <h2 style={{ marginBottom: 28 }}>Press <span className="gradient-text">Contacts</span></h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 32 }}>
           {pressContacts.map(c => (
             <div key={c.role} className="glass-card-teal" style={{ padding: 24 }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-tertiary)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>{c.role}</div>

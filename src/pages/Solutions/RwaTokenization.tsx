@@ -64,7 +64,7 @@ export default function RwaTokenization() {
         </div>
 
         {/* ── The Smart SPV ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 56 }}>
           <motion.div
             className="glass-card-teal"
             style={{ padding: 28 }}
@@ -114,7 +114,7 @@ export default function RwaTokenization() {
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem', marginBottom: 28 }}>
           Any SEC-regulated financial instrument can be structured as a WAVE-S instrument.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 56 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 56 }}>
           {assetClasses.map((ac, i) => (
             <motion.div
               key={ac.label}
@@ -191,7 +191,7 @@ export default function RwaTokenization() {
         </div>
 
         {/* ── CTA ── */}
-        <div className="glass-card-teal" style={{ padding: 36, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+        <div className="glass-card-teal" style={{ padding: 'clamp(20px, 4vw, 36px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
           <div>
             <h3 style={{ marginBottom: 8 }}>Structure Your First WAVE-S Instrument</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', margin: 0, maxWidth: 520 }}>

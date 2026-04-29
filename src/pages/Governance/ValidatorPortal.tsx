@@ -107,7 +107,7 @@ function StakePanel({ tick }: { tick: number }) {
         </span>
       </div>
       <div style={{ padding: '20px 22px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 18 }}>
           <div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', marginBottom: 4 }}>
               STAKED $WAVE
@@ -336,7 +336,7 @@ function HealthPanel({ tick }: { tick: number }) {
       padding: '18px 20px',
     }}>
       <PanelLabel><BarChart3 size={12} /> NODE HEALTH METRICS</PanelLabel>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14 }}>
         {[
           { label: 'UPTIME',      value: `${uptime}%`,   icon: <TrendingUp size={14} />, color: 'var(--teal-400)' },
           { label: 'AVG LATENCY', value: '38ms',          icon: <Zap size={14} />,        color: '#FCD34D'          },
@@ -398,7 +398,7 @@ export default function ValidatorPortal() {
             gap: 20,
           }}>
             <HealthPanel tick={tick} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
               <StakePanel tick={tick} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <DtcPanel />
@@ -546,7 +546,7 @@ export default function ValidatorPortal() {
                 </div>
 
                 {/* Feature list */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 32 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 10, marginBottom: 32 }}>
                   {[
                     { icon: <BarChart3 size={13} />, label: 'Live Stake Dashboard'         },
                     { icon: <Cpu          size={13} />, label: 'DTC Committee Assignments' },

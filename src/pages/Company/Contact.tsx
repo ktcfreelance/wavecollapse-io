@@ -85,7 +85,7 @@ export default function Contact() {
             </motion.div>
           ) : (
             <form className="glass-card" style={{ padding: 32 }} onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginBottom: 20 }}>
                 <div>
                   <label className="form-label" htmlFor="contact-name">
                     <User size={11} style={{ display: 'inline', marginRight: 4 }} />
