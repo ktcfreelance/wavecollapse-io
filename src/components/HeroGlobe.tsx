@@ -58,7 +58,7 @@ const hubs = [
 ];
 
 export default function HeroGlobe() {
-  const globeEl = useRef<any>();
+  const globeEl = useRef<any>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
   
   const arcsData = useMemo(() => {
