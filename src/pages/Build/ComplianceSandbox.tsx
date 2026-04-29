@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PlayCircle, RotateCcw, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
+import { PlayCircle, RotateCcw, CheckCircle2, XCircle, AlertCircle, Info, ShieldAlert } from 'lucide-react';
 
 interface Iso20022Fields {
   purposeCode: string;
@@ -16,9 +16,18 @@ interface KytFlags {
   velocityAlert: boolean;
 }
 
-type SimResult = 'idle' | 'running' | 'pass' | 'fail';
+type SimResult = 'idle' | 'running' | 'pass' | 'fail' | 'held';
 
-const purposeCodes = ['GDDS', 'SCVE', 'INVS', 'INTC', 'CASH', 'DIVI', 'LOAN', 'SALA'];
+const purposeCodes: { code: string; desc: string }[] = [
+  { code: 'GDDS', desc: 'Goods & Services' },
+  { code: 'SCVE', desc: 'Securities Purchase / Sale' },
+  { code: 'INVS', desc: 'Investment / Securities' },
+  { code: 'INTC', desc: 'Intra-Company Transfer' },
+  { code: 'CASH', desc: 'Cash Management' },
+  { code: 'DIVI', desc: 'Dividend Payment' },
+  { code: 'LOAN', desc: 'Loan Repayment' },
+  { code: 'SALA', desc: 'Salary / Payroll' },
+];
 
 export default function ComplianceSandbox() {
   const [iso, setIso] = useState<Iso20022Fields>({
@@ -35,27 +44,43 @@ export default function ComplianceSandbox() {
   const runSimulation = () => {
     setResult('running');
     setLog([]);
-    const steps = [
+    const isHardFail = kyt.sanctionMatch || iso.creditorLEI.length !== 20;
+    const isSoftHold = !isHardFail && (kyt.highRisk || kyt.velocityAlert);
+
+    const steps: string[] = [
       '[00:00ms] Initializing x402 settlement context...',
       `[00:08ms] ISO 20022 purposeCode validated: ${iso.purposeCode} ✓`,
       `[00:11ms] creditorLEI format check: ${iso.creditorLEI.length === 20 ? '20-char GLEIF format ✓' : 'FORMAT ERROR ✗'}`,
-      `[00:14ms] KYT engine loading transaction profile...`,
+      '[00:14ms] KYT engine loading transaction profile...',
       kyt.sanctionMatch ? '[00:22ms] ⚠ OFAC/UN sanctions match detected — settlement blocked ✗' : '[00:22ms] OFAC/UN sanctions screen: CLEAR ✓',
-      kyt.highRisk ? '[00:28ms] ⚠ High-risk jurisdiction flag active — manual review required' : '[00:28ms] Jurisdiction risk score: LOW ✓',
-      kyt.velocityAlert ? '[00:32ms] ⚠ Velocity threshold exceeded — transaction flagged' : '[00:32ms] Velocity check: WITHIN LIMITS ✓',
+      kyt.highRisk ? '[00:28ms] ⚠ High-risk jurisdiction flag active — enhanced due diligence required' : '[00:28ms] Jurisdiction risk score: LOW ✓',
+      kyt.velocityAlert ? '[00:32ms] ⚠ Velocity threshold exceeded — potential structuring detected' : '[00:32ms] Velocity check: WITHIN LIMITS ✓',
       `[00:38ms] Amount: $${Number(iso.amount).toLocaleString()} ${iso.currency}`,
       '[00:41ms] 17a-4 Merkle audit record appended — chain intact ✓',
-      kyt.sanctionMatch ? '[00:45ms] SETTLEMENT REJECTED — compliance gate triggered' : '[00:45ms] SETTLEMENT APPROVED — x402 finality confirmed',
     ];
+
+    // Branch the final steps based on outcome
+    if (isHardFail) {
+      steps.push('[00:45ms] SETTLEMENT REJECTED — compliance gate triggered ✗');
+    } else if (isSoftHold) {
+      steps.push('[00:45ms] WaveToken.freeze() invoked — tokens escrowed pending review');
+      steps.push('[00:48ms] SETTLEMENT HELD — FROZEN in escrow, awaiting compliance officer clearance');
+      if (kyt.highRisk) steps.push('[00:50ms] ↳ Trigger: FATF high-risk jurisdiction — manual EDD review required');
+      if (kyt.velocityAlert) steps.push('[00:51ms] ↳ Trigger: FinCEN velocity threshold breach — structuring review queued');
+      steps.push('[00:54ms] Compliance review ticket created — settlement will finalize or reject upon officer action');
+    } else {
+      steps.push('[00:45ms] SETTLEMENT APPROVED — x402 finality confirmed ✓');
+    }
 
     let i = 0;
     const interval = setInterval(() => {
-      setLog((prev) => [...prev, steps[i]]);
-      i++;
       if (i >= steps.length) {
         clearInterval(interval);
-        setResult(kyt.sanctionMatch || iso.creditorLEI.length !== 20 ? 'fail' : 'pass');
+        setResult(isHardFail ? 'fail' : isSoftHold ? 'held' : 'pass');
+        return;
       }
+      setLog((prev) => [...prev, steps[i]]);
+      i++;
     }, 120);
   };
 
@@ -90,7 +115,7 @@ export default function ComplianceSandbox() {
                   <label className="form-label" htmlFor="sandbox-purposeCode">purposeCode *</label>
                   <select id="sandbox-purposeCode" className="form-input" value={iso.purposeCode}
                     onChange={e => setIso({ ...iso, purposeCode: e.target.value })}>
-                    {purposeCodes.map(c => <option key={c} value={c}>{c}</option>)}
+                    {purposeCodes.map(({ code, desc }) => <option key={code} value={code}>{code} — {desc}</option>)}
                   </select>
                 </div>
                 <div>
@@ -122,13 +147,17 @@ export default function ComplianceSandbox() {
                 Know Your Transaction (KYT) Flags
               </div>
               {[
-                { key: 'highRisk', label: 'High-Risk Jurisdiction', icon: <AlertCircle size={15} /> },
-                { key: 'sanctionMatch', label: 'OFAC / UN Sanctions Match', icon: <XCircle size={15} /> },
-                { key: 'velocityAlert', label: 'Velocity Threshold Alert', icon: <AlertCircle size={15} /> },
-              ].map(({ key, label, icon }) => (
-                <label key={key} htmlFor={`kyt-${key}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--border-subtle)', cursor: 'pointer', gap: 12 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: kyt[key as keyof KytFlags] ? 'var(--accent-red)' : 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                { key: 'highRisk', label: 'High-Risk Jurisdiction', icon: <AlertCircle size={15} />, tooltip: 'Flags counterparties domiciled in FATF-designated high-risk or non-cooperative jurisdictions. Triggers enhanced due diligence and may require manual compliance officer review before settlement.' },
+                { key: 'sanctionMatch', label: 'OFAC / UN Sanctions Match', icon: <XCircle size={15} />, tooltip: 'Screens the creditor LEI and associated entities against OFAC SDN, UN Security Council, and EU consolidated sanctions lists. A positive match blocks settlement immediately.' },
+                { key: 'velocityAlert', label: 'Velocity Threshold Alert', icon: <AlertCircle size={15} />, tooltip: 'Monitors transaction frequency and cumulative volume over rolling 24h / 7d windows per counterparty. Exceeding FinCEN-defined thresholds triggers a structuring-risk flag.' },
+              ].map(({ key, label, icon, tooltip }) => (
+                <label key={key} htmlFor={`kyt-${key}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--border-subtle)', cursor: 'pointer', gap: 12, position: 'relative' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: kyt[key as keyof KytFlags] ? 'var(--accent-red)' : 'var(--text-secondary)', fontSize: '0.875rem', flex: 1 }}>
                     {icon}{label}
+                    <span className="kyt-tooltip-anchor" style={{ display: 'inline-flex', marginLeft: 2, position: 'relative' }}>
+                      <Info size={13} style={{ color: 'var(--text-muted)', cursor: 'help', flexShrink: 0 }} />
+                      <span className="kyt-tooltip">{tooltip}</span>
+                    </span>
                   </div>
                   <input id={`kyt-${key}`} type="checkbox" checked={kyt[key as keyof KytFlags]}
                     onChange={e => setKyt({ ...kyt, [key]: e.target.checked })}
@@ -158,6 +187,7 @@ export default function ComplianceSandbox() {
                   <span style={{ marginLeft: 'auto' }}>
                     {result === 'running' && <span className="badge badge-amber">RUNNING</span>}
                     {result === 'pass'    && <span className="badge badge-teal">APPROVED</span>}
+                    {result === 'held'    && <span className="badge badge-amber">HELD — FROZEN</span>}
                     {result === 'fail'    && <span className="badge badge-red">REJECTED</span>}
                   </span>
                 )}
@@ -166,13 +196,14 @@ export default function ComplianceSandbox() {
                 {log.length === 0 && (
                   <span style={{ color: 'var(--text-muted)' }}>// Configure parameters and click Run Simulation</span>
                 )}
-                {log.map((line, i) => (
+                {log.filter(Boolean).map((line, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.12 }}
                     style={{
                       color: line.includes('✗') || line.includes('REJECTED') ? 'var(--accent-red)'
+                        : line.includes('HELD') || line.includes('freeze()') || line.includes('↳') ? 'var(--accent-amber)'
                         : line.includes('⚠') ? 'var(--accent-amber)'
                         : line.includes('APPROVED') ? 'var(--teal-300)'
                         : 'var(--text-secondary)',
@@ -190,6 +221,15 @@ export default function ComplianceSandbox() {
                 <div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--teal-300)', marginBottom: 4 }}>Settlement Approved</div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-tertiary)' }}>All compliance gates cleared. 17a-4 record appended to Merkle chain.</div>
+                </div>
+              </motion.div>
+            )}
+            {result === 'held' && (
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-card" style={{ padding: 20, display: 'flex', gap: 14, alignItems: 'center', borderColor: 'rgba(245,158,11,0.35)', background: 'rgba(245,158,11,0.04)' }}>
+                <ShieldAlert size={28} color="var(--accent-amber)" />
+                <div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#FCD34D', marginBottom: 4 }}>Settlement Held — Frozen in Escrow</div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-tertiary)' }}>Tokens escrowed via WaveToken <code>freeze()</code>. Settlement awaiting manual compliance officer review. Will finalize or reject upon officer action.</div>
                 </div>
               </motion.div>
             )}
