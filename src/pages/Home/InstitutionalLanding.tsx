@@ -5,6 +5,7 @@ import {
   ArrowRight, Shield, Zap, BarChart3, Activity, AlertTriangle,
   Building2, Lock, ChevronRight, Terminal
 } from 'lucide-react';
+import HeroGlobe from '../../components/HeroGlobe';
 
 const metrics = [
   { value: '~45.9ms', label: 'P50 Optimistic Acknowledgement', sub: 'Machine-to-machine finality' },
@@ -77,39 +78,45 @@ export default function InstitutionalLanding() {
       <section className="hero-section">
         <div className="hero-glow" />
         <div className="container">
-          <motion.div className="hero-inner" variants={stagger} initial="initial" animate="animate">
-            <motion.div variants={fadeUp}>
-              <span className="section-label">WaveCollapse Protocol v4.0</span>
+          <div className="hero-inner">
+            <motion.div className="hero-content" variants={stagger} initial="initial" animate="animate">
+              <motion.div variants={fadeUp}>
+                <span className="section-label">WaveCollapse Protocol v4.0</span>
+              </motion.div>
+
+              <motion.h1 className="hero-headline" variants={fadeUp}>
+                The Settlement<br />
+                <span className="gradient-text">Infrastructure Layer</span><br />
+                for Institutions
+              </motion.h1>
+
+              <motion.p className="hero-sub" variants={fadeUp}>
+                Programmable compliance. Provable immutability. Agentic settlement.
+                WaveCollapse v4.0 is the GENIUS Act-native protocol layer purpose-built
+                for banks, FinTechs, and custodians operating in a regulated digital asset environment.
+              </motion.p>
+
+              <motion.div className="hero-actions" variants={fadeUp}>
+                <Link to="/solutions/intake" className="btn-primary" id="hero-cta-primary">
+                  Request Institutional Access <ArrowRight size={16} />
+                </Link>
+                <Link to="/trust/simulation" className="btn-secondary" id="hero-cta-simulation">
+                  View Simulation Report <Activity size={16} />
+                </Link>
+              </motion.div>
+
+              <motion.div className="hero-badges" variants={fadeUp}>
+                <span className="badge badge-teal">GENIUS Act Compliant</span>
+                <span className="badge badge-blue">SEC 17a-4 Equivalent</span>
+                <span className="badge badge-amber">ISO 20022 Native</span>
+                <span className="badge badge-teal">FIT21 Framework</span>
+              </motion.div>
             </motion.div>
 
-            <motion.h1 className="hero-headline" variants={fadeUp}>
-              The Settlement<br />
-              <span className="gradient-text">Infrastructure Layer</span><br />
-              for Institutions
-            </motion.h1>
-
-            <motion.p className="hero-sub" variants={fadeUp}>
-              Programmable compliance. Provable immutability. Agentic settlement.
-              WaveCollapse v4.0 is the GENIUS Act-native protocol layer purpose-built
-              for banks, FinTechs, and custodians operating in a regulated digital asset environment.
-            </motion.p>
-
-            <motion.div className="hero-actions" variants={fadeUp}>
-              <Link to="/solutions/intake" className="btn-primary" id="hero-cta-primary">
-                Request Institutional Access <ArrowRight size={16} />
-              </Link>
-              <Link to="/trust/simulation" className="btn-secondary" id="hero-cta-simulation">
-                View Simulation Report <Activity size={16} />
-              </Link>
+            <motion.div className="hero-visual" initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} transition={{ duration: 1.2, delay: 0.2 }}>
+              <HeroGlobe />
             </motion.div>
-
-            <motion.div className="hero-badges" variants={fadeUp}>
-              <span className="badge badge-teal">GENIUS Act Compliant</span>
-              <span className="badge badge-blue">SEC 17a-4 Equivalent</span>
-              <span className="badge badge-amber">ISO 20022 Native</span>
-              <span className="badge badge-teal">FIT21 Framework</span>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
