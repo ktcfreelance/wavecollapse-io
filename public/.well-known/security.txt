@@ -1,0 +1,7 @@
+# WaveCollapse Protocol — Security Contact
+# https://securitytxt.org/
+
+Contact: mailto:security@wavecollapse.io
+Preferred-Languages: en
+Canonical: https://wavecollapse.io/.well-known/security.txt
+Expires: 2027-04-29T00:00:00.000Z
