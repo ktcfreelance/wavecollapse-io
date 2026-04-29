@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Cpu, Database, ShieldAlert, ArrowRight, Loader2, AlertCircle, CheckCircle2, Zap } from 'lucide-react';
-import Turnstile, { useTurnstile } from 'react-turnstile';
+import { Turnstile, useTurnstile } from 'react-turnstile';
 
 const NODE_TYPE_OPTIONS = [
   { value: 'validator', label: 'Validator Node', icon: <Cpu size={16} />, badge: 'DTC Enabled' },

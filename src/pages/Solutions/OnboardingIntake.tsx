@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ClipboardList, Server, Key, CheckCircle2, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
-import Turnstile, { useTurnstile } from 'react-turnstile';
+import { Turnstile, useTurnstile } from 'react-turnstile';
 
 const phases = [
   { icon: <ClipboardList size={22} />, num: '01', title: 'Readiness Assessment', desc: 'Complete a compliance questionnaire covering your regulatory posture, AML program status, and infrastructure tier.' },
