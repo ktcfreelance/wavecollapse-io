@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { Lock, Key, FileText, Shield, ArrowRight, CheckCircle } from 'lucide-react';
 
@@ -36,6 +37,11 @@ const tiers = [
 export default function ApiReference() {
   return (
     <div className="container section">
+      <SEOHead
+        title="API Reference"
+        description="WaveCollapse REST API reference for settlement initiation, compliance validation, WAVE-S instrument management, and network health monitoring. Credentialed institutional access required."
+        path="/build/api"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Build / API Reference</span>
         <h1>API <span style={{ color: 'var(--teal-400)' }}>Reference</span></h1>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { ClipboardList, Server, Key, CheckCircle2, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { Turnstile, useTurnstile } from 'react-turnstile';
@@ -67,6 +68,11 @@ export default function OnboardingIntake() {
 
   return (
     <div className="container section">
+      <SEOHead
+        title="Institutional Onboarding"
+        description="Begin the WaveCollapse institutional onboarding process. Complete a compliance readiness assessment, provision a sandbox, and receive production credentials for your settlement infrastructure."
+        path="/solutions/intake"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Solutions / Institutional Onboarding</span>
         <h1>Institutional <span style={{ color: 'var(--teal-400)' }}>Intake Portal</span></h1>

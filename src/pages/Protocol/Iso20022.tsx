@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 
 export default function Iso20022() {
   return (
     <div className="container section">
+      <SEOHead
+        title="ISO 20022 Native Messaging"
+        description="WaveCollapse v4.0 natively encodes every settlement message in ISO 20022 XML. purposeCode and creditorLEI are mandatory protocol-level fields on every state transition."
+        path="/protocol/iso20022"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Protocol / ISO 20022</span>
         <h1>ISO 20022 <span style={{ color: 'var(--teal-400)' }}>Native Messaging</span></h1>

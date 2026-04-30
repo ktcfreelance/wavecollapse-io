@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -56,6 +57,11 @@ export default function SimulationReport() {
 
   return (
     <div className="container section">
+      <SEOHead
+        title="v4.0 Settlement Simulation Report"
+        description="April 2026 benchmark: 99.9% latency reduction vs DTCC T+2, 328.5ms P50 finality, 15 bps settlement fee. 100-transaction load test on WaveNet-Testnet-v4.0."
+        path="/trust/simulation"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Trust Hub / Simulation Report</span>
         <h1>v4.0 Settlement <span style={{ color: 'var(--teal-400)' }}>Simulation Report</span></h1>

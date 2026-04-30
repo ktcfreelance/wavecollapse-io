@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { CheckCircle2 } from 'lucide-react';
 
 const audits = [
@@ -11,6 +12,11 @@ const audits = [
 export default function Audits() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Security Audit Reports"
+        description="Independent security auditing across protocol, smart contract, and infrastructure layers. Trail of Bits, OpenZeppelin, Halborn Security, and Quantstamp engagements."
+        path="/governance/audits"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Governance / Audits</span>
         <h1>Security <span style={{ color: 'var(--teal-400)' }}>Audit Reports</span></h1>

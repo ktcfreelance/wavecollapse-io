@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { BookOpen, Terminal } from 'lucide-react';
 
 export default function TypescriptSDK() {
   return (
     <div className="container section">
+      <SEOHead
+        title="TypeScript SDK"
+        description="The official WaveCollapse TypeScript SDK provides typed client libraries for protocol integration, ISO 20022 message construction, and settlement state management."
+        path="/build/sdk"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Build / TypeScript SDK</span>
         <h1>TypeScript <span style={{ color: 'var(--teal-400)' }}>SDK</span></h1>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 
 const sections = [
   { title: '1. Acceptance of Terms', body: 'By accessing or using the WaveCollapse Protocol website, documentation, or developer tools, you agree to be bound by these Terms of Service and all applicable laws and regulations.' },
@@ -13,6 +14,11 @@ const sections = [
 export default function TermsOfService() {
   return (
     <div className="container-sm section">
+      <SEOHead
+        title="Terms of Service"
+        description="Terms governing access to WaveCollapse Protocol website, developer tools, and documentation. Technology Provider status under the GENIUS Act of 2025."
+        path="/legal/terms"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Legal / Terms of Service</span>
         <h1>Terms of <span style={{ color: 'var(--teal-400)' }}>Service</span></h1>

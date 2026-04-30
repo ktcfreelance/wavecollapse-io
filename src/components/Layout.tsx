@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import MegaMenu from './Navigation/MegaMenu';
 import LegalFooter from './Footer/LegalFooter';
@@ -33,6 +33,9 @@ export default function Layout() {
 
       <LegalFooter />
       <CookieBanner />
+
+      {/* Native Data Router scroll restoration — respects browser back/forward cache */}
+      <ScrollRestoration />
     </div>
   );
 }

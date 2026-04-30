@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Mail, Building2, User, MessageSquare, Send } from 'lucide-react';
 
@@ -27,6 +28,11 @@ export default function Contact() {
 
   return (
     <div className="container section">
+      <SEOHead
+        title="Contact"
+        description="Contact WaveCollapse for institutional partnerships, onboarding questions, and press inquiries. Messages are reviewed and triaged within one business day."
+        path="/contact"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Company / Contact</span>
         <h1>Contact <span style={{ color: 'var(--teal-400)' }}>WaveCollapse</span></h1>

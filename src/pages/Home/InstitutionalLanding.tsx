@@ -1,4 +1,5 @@
 import './InstitutionalLanding.css';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -74,6 +75,22 @@ const fadeUp = {
 export default function InstitutionalLanding() {
   return (
     <div>
+      <SEOHead
+        title="Institutional Settlement Infrastructure"
+        description="WaveCollapse is the GENIUS Act-native settlement infrastructure layer for banks, FinTechs, and custodians. Programmable compliance. Provable immutability. ISO 20022 native. Sub-second finality."
+        path="/"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'WaveCollapse Protocol',
+          url: 'https://wavecollapse.io',
+          logo: 'https://wavecollapse.io/logo.png',
+          description: 'GENIUS Act-native settlement infrastructure layer for institutional digital asset transactions.',
+          sameAs: [],
+          foundingDate: '2025',
+          knowsAbout: ['Digital Asset Settlement', 'ISO 20022', 'SEC Rule 17a-4', 'GENIUS Act', 'RWA Tokenization'],
+        }}
+      />
       {/* ── Hero ── */}
       <section className="hero-section">
         <div className="hero-glow" />

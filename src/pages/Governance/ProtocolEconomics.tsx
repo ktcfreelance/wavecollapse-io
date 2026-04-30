@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { BarChart3, Shield, Cpu, Lock, Zap, AlertCircle, TrendingDown, Users } from 'lucide-react';
 
 const nodeTypes = [
@@ -54,6 +55,11 @@ const allocation = [
 export default function ProtocolEconomics() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Real Yield Tokenomics"
+        description="$WAVE tokenomics backed by a deterministic 15 bps institutional settlement fee. Fixed 1B supply, zero inflationary rewards, deflationary burn mechanism. FIT21 Digital Commodity classification."
+        path="/governance/economics"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Governance / Protocol Economics</span>
         <h1>Real Yield <span style={{ color: 'var(--teal-400)' }}>Tokenomics</span></h1>

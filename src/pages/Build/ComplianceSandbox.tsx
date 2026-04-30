@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { PlayCircle, RotateCcw, CheckCircle2, XCircle, AlertCircle, Info, ShieldAlert } from 'lucide-react';
 
@@ -91,6 +92,11 @@ export default function ComplianceSandbox() {
 
   return (
     <div className="container section">
+      <SEOHead
+        title="Compliance Sandbox"
+        description="Simulate a full ISO 20022-compliant x402 settlement including KYT checks, OFAC screening, velocity analysis, and SEC 17a-4 audit-trail appending in real time."
+        path="/build/sandbox"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Build / Compliance Sandbox</span>
         <h1>Compliance-<span style={{ color: 'var(--teal-400)' }}>as-Code</span> Sandbox</h1>

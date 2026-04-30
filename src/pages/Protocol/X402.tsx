@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Zap } from 'lucide-react';
 
 export default function X402() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Agentic x402 Settlement Layer"
+        description="The x402 layer extends HTTP 402 Payment Required into an autonomous, machine-to-machine settlement negotiation protocol. AI agents settle without human intervention while bounded by ISO 20022 compliance."
+        path="/protocol/x402"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Protocol / x402 Layer</span>
         <h1>Agentic <span style={{ color: 'var(--teal-400)' }}>x402 Settlement</span></h1>

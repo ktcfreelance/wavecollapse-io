@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Shield, CheckCircle2, FileText, ExternalLink } from 'lucide-react';
 
 const equivalencyPillars = [
@@ -11,6 +12,11 @@ const equivalencyPillars = [
 export default function RedundantEquivalency() {
   return (
     <div className="container section">
+      <SEOHead
+        title="SEC 17a-4 Redundant Equivalency"
+        description="WaveCollapse v4.0 achieves SEC Rule 17a-4 compliance through software-defined, cryptographically provable redundancy. Merkle-chained audit trails, non-erasable records, and 6-year lookback guarantees."
+        path="/protocol/equivalency"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Protocol / Redundant Equivalency</span>
         <h1>SEC 17a-4 <span style={{ color: 'var(--teal-400)' }}>Redundant Equivalency</span></h1>

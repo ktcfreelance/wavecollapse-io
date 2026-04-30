@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -368,6 +369,11 @@ export default function ValidatorPortal() {
 
   return (
     <div className="container section" style={{ position: 'relative' }}>
+      <SEOHead
+        title="Validator Portal"
+        description="Institutional-grade stake management, SLA contract monitoring, DTC consensus participation, and Software-Defined WORM audit trail visibility. Access restricted to credentialed Anchor Nodes."
+        path="/governance/validators"
+      />
 
       {/* Page header */}
       <motion.div variants={stagger} initial="hidden" animate="show">

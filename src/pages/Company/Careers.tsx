@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Clock, Briefcase, Mail, ExternalLink } from 'lucide-react';
 
@@ -60,6 +61,11 @@ const openRoles: Role[] = [
 export default function Careers() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Careers"
+        description="Join the WaveCollapse team. Open roles in protocol engineering, institutional partnerships, and compliance engineering. Remote-first, competitive compensation, $WAVE equity."
+        path="/careers"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Company / Careers</span>
         <h1>Build the <span style={{ color: 'var(--teal-400)' }}>Infrastructure</span></h1>

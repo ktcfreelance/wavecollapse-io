@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { Shield, Cpu, Globe, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 
@@ -35,6 +36,11 @@ const timeline = [
 export default function About() {
   return (
     <div className="container section">
+      <SEOHead
+        title="About WaveCollapse"
+        description="WaveCollapse is programmable compliance infrastructure for institutional digital asset settlement. Compliance-first architecture, GENIUS Act Technology Provider status, and institutional-grade security."
+        path="/about"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Company / About</span>
         <h1>About <span style={{ color: 'var(--teal-400)' }}>WaveCollapse</span></h1>

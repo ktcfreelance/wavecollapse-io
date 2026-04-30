@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SEOHead from '../../components/SEOHead';
 import { motion } from 'framer-motion';
 import { Terminal, Cpu, Database, ShieldAlert, ArrowRight, Loader2, AlertCircle, CheckCircle2, Zap } from 'lucide-react';
 import { Turnstile, useTurnstile } from 'react-turnstile';
@@ -79,6 +80,11 @@ export default function NodeWizard() {
   if (submitted) {
     return (
       <div className="container section">
+        <SEOHead
+          title="Node Operator Application"
+          description="Apply to operate a WaveCollapse Validator, Archive, or Facilitator node. Restricted to credentialed institutional partners. Complete the screening form to begin the onboarding pipeline."
+          path="/build/node-wizard"
+        />
         <motion.div className="glass-card-teal" style={{ padding: 40, maxWidth: 600, margin: '80px auto' }}
           initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
           <CheckCircle2 size={44} color="var(--teal-400)" />
@@ -111,6 +117,11 @@ export default function NodeWizard() {
   // ── Application Form ─────────────────────────────────────────────────────────
   return (
     <div className="container section">
+      <SEOHead
+        title="Node Operator Application"
+        description="Apply to operate a WaveCollapse Validator, Archive, or Facilitator node. Restricted to credentialed institutional partners. Complete the screening form to begin the onboarding pipeline."
+        path="/build/node-wizard"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label"><Terminal size={12} /> Build / Node Operator Application</span>
         <h1>Node Operator <span style={{ color: 'var(--teal-400)' }}>Application</span></h1>

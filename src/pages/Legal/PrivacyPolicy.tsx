@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 
 const sections = [
   {
@@ -46,6 +47,11 @@ const sections = [
 export default function PrivacyPolicy() {
   return (
     <div className="container-sm section">
+      <SEOHead
+        title="Privacy Policy"
+        description="How WaveCollapse Protocol collects, uses, and protects your information. Covers institutional onboarding, node operator applications, data isolation, bot protection, and your privacy rights."
+        path="/legal/privacy"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Legal / Privacy Policy</span>
         <h1>Privacy <span style={{ color: 'var(--teal-400)' }}>Policy</span></h1>

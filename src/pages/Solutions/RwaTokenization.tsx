@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import {
   Building2, Shield, Lock, FileCheck, ArrowRight, AlertCircle,
@@ -32,6 +33,11 @@ const issuanceSteps = [
 export default function RwaTokenization() {
   return (
     <div className="container section">
+      <SEOHead
+        title="RWA Tokenization — WAVE-S Standard"
+        description="The WAVE-S standard enables SEC-compliant real-world asset tokenization with programmable KYC/AML enforcement, forced clawbacks, and IRS 1099-DA reporting built into every instrument."
+        path="/solutions/rwa"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Solutions / RWA Tokenization</span>
         <h1>RWA <span style={{ color: 'var(--teal-400)' }}>Tokenization</span></h1>

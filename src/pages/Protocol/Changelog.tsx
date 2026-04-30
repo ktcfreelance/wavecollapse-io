@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { Tag, CheckCircle, AlertCircle, Cpu, Shield, Zap, Lock, ArrowRight } from 'lucide-react';
 
@@ -137,6 +138,11 @@ function EntryBadge({ type }: { type: EntryType }) {
 export default function Changelog() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Protocol Changelog"
+        description="Complete version history of the WaveCollapse Protocol. Documented against regulatory impact, compliance additions, and architectural changes from v3.0 through v4.0."
+        path="/protocol/changelog"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Protocol / Changelog</span>
         <h1>Protocol <span style={{ color: 'var(--teal-400)' }}>Changelog</span></h1>

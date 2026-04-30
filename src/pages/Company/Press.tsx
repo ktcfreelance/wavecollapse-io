@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Download, FileText, Image, Copy, CheckCircle, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
@@ -38,6 +39,11 @@ export default function Press() {
 
   return (
     <div className="container section">
+      <SEOHead
+        title="Press Kit"
+        description="WaveCollapse brand assets, boilerplate copy, color system, typography, and media contacts for journalists, analysts, and research teams."
+        path="/press"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Company / Press Kit</span>
         <h1>Press <span style={{ color: 'var(--teal-400)' }}>Kit</span></h1>

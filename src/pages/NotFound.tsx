@@ -1,10 +1,16 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../components/SEOHead';
 import { Link } from 'react-router-dom';
 import { Home, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="container section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center' }}>
+      <SEOHead
+        title="404 — Route Not Found"
+        description="This path does not exist on the WaveCollapse protocol. It may have moved or been deprecated in a protocol upgrade."
+        path="/404"
+      />
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '6rem', fontWeight: 800, background: 'var(--grad-teal)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1, marginBottom: 16 }}>
           404

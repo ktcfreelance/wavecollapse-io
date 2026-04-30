@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 import { Link } from 'react-router-dom';
 import {
   Zap, Shield, Clock, Network, Server, Lock, CheckCircle,
@@ -65,6 +66,19 @@ const refArch = [
 export default function Settlement() {
   return (
     <div className="container section">
+      <SEOHead
+        title="Settlement Infrastructure"
+        description="Programmable, compliance-first settlement infrastructure for institutional digital asset transactions. Sub-second finality, ISO 20022 native messaging, and SEC 17a-4 WORM compliance."
+        path="/solutions/settlement"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'WaveCollapse Settlement Infrastructure',
+          applicationCategory: 'FinanceApplication',
+          operatingSystem: 'Cloud',
+          description: 'Institutional-grade settlement rails with ISO 20022 native messaging and SEC 17a-4 compliance.',
+        }}
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Solutions / Settlement Infrastructure</span>
         <h1>Settlement <span style={{ color: 'var(--teal-400)' }}>Infrastructure</span></h1>

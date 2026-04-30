@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SEOHead from '../../components/SEOHead';
 
 const cookieTypes = [
   { type: 'Essential', required: true, desc: 'Required for the website to function. These cannot be disabled. Includes session management and security tokens.' },
@@ -10,6 +11,11 @@ const cookieTypes = [
 export default function CookiePolicy() {
   return (
     <div className="container-sm section">
+      <SEOHead
+        title="Cookie Policy"
+        description="How WaveCollapse Protocol uses cookies and tracking technologies. Manage your consent preferences for essential, analytics, performance, and marketing cookies."
+        path="/legal/cookies"
+      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Legal / Cookie Policy</span>
         <h1>Cookie <span style={{ color: 'var(--teal-400)' }}>Policy</span></h1>
