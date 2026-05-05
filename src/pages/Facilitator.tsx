@@ -4,23 +4,24 @@ import { generateManifest } from '../utils/manifestGenerator';
 import '../components/Forms.css';
 
 const DEFAULT_ORACLE = 'https://api.wavecollapse.io/v1/oracle/fiat-peg?pair=WAVE-USD&basis=100000';
-const WAVE_PRICE_BASIS_USD = 100_000;
 
-// Tier definitions from tokenomics whitepaper
+// Tier definitions — capacity denominated in bytes (network physics), NOT fiat.
+// This is a deliberate architectural decision to maintain the GENIUS Act
+// Technology Provider shield. The Rail does not know what a dollar is.
 const TIER_CONFIG = {
   tier1: {
     label: 'Tier 1 — Regional Relay',
     waveMin: 10_000,
-    fiatMin: 10_000,
-    dailyCap: 100_000,
+    dailyCapBytes: 50 * 1024 * 1024, // 50 MB = 52,428,800 bytes
+    dailyCapDisplay: '50 MB / 24h epoch',
     hasCap: true,
     hasPeerRegistration: true,
   },
   tier2: {
     label: 'Tier 2 — Global Infrastructure (Backbone)',
     waveMin: 100_000,
-    fiatMin: 100_000,
-    dailyCap: Infinity,
+    dailyCapBytes: 0, // 0 = unlimited
+    dailyCapDisplay: 'Unlimited',
     hasCap: false,
     hasPeerRegistration: false,
   },
@@ -130,7 +131,7 @@ export default function Facilitator() {
             </div>
             <div style={{ padding: '12px 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px 24px', fontSize: '0.85rem' }}>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Min $WAVE Bond:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.waveMin.toLocaleString()} $WAVE</strong></div>
-              <div><span style={{ color: 'var(--text-tertiary)' }}>Daily Cap:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.hasCap ? `$${tierCfg.dailyCap.toLocaleString()} USD` : 'Unlimited'}</strong></div>
+              <div><span style={{ color: 'var(--text-tertiary)' }}>Daily Throughput:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.dailyCapDisplay}</strong></div>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Facilitator Fee:</span> <strong style={{ color: 'var(--teal-400)' }}>3 bps (protocol-fixed)</strong></div>
               <div><span style={{ color: 'var(--text-tertiary)' }}>Tier 2 Failover:</span> <strong style={{ color: 'var(--teal-400)' }}>{tierCfg.hasPeerRegistration ? 'Required' : 'N/A (this is Tier 2)'}</strong></div>
             </div>
@@ -141,10 +142,11 @@ export default function Facilitator() {
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, marginTop: 12, padding: '12px 14px', borderRadius: 6, border: '1px solid rgba(255,170,0,0.35)', backgroundColor: 'rgba(255,170,0,0.07)' }}>
               <AlertTriangle size={15} color="var(--accent-amber)" style={{ flexShrink: 0, marginTop: 1 }} />
               <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
-                <strong style={{ color: 'var(--accent-amber)' }}>Volume Cap Advisory:</strong>{' '}
-                Tier 1 nodes are capped at <strong>$100,000 USD/day</strong> in routed volume.
-                Transactions above this threshold are automatically spilled over to your registered
-                Tier 2 Backbone peer — merchant operations are never interrupted.
+                <strong style={{ color: 'var(--accent-amber)' }}>Throughput Governance:</strong>{' '}
+                Tier 1 nodes are capped at <strong>50 MB / 24h epoch</strong> of relayed throughput.
+                This is a network physics constraint — not a financial limit — ensuring stable bandwidth
+                allocation across edge nodes. When throughput exceeds this cap, transactions are automatically
+                spilled over to your registered Tier 2 Backbone peer. Merchant operations are never interrupted.
                 Register a Tier 2 peer ID below to enable seamless spillover.
               </p>
             </div>
@@ -259,7 +261,7 @@ export default function Facilitator() {
               onChange={e => setTier2PeerId(e.target.value)}
             />
             <p style={{ marginTop: 6, fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>
-              When your daily volume exceeds <strong>$100,000 USD</strong>, transactions are automatically
+              When your daily throughput exceeds <strong>50 MB</strong>, transactions are automatically
               rerouted to this Tier 2 Backbone peer. Merchant operations are uninterrupted.
               Leave blank to disable automated spillover (not recommended for production deployments).
             </p>

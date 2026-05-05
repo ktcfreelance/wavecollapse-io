@@ -44,7 +44,7 @@ export const generateManifest = async (config: NodeConfig) => {
 
   if (config.type === 'facilitator') {
     const tier = config.facilitatorTier ?? 'tier1';
-    const dailyCap = tier === 'tier1' ? 100_000 : 0; // 0 = unlimited for tier2
+    const dailyCap = tier === 'tier1' ? 50 * 1024 * 1024 : 0; // 50 MB in bytes (0 = unlimited for tier2)
     envFile += `\n# ── Facilitator Node Configuration ──────────────────────────────────────\n`;
     envFile += `WC_FACILITATOR_TIER=${tier}\n`;
     envFile += `WC_FACILITATOR_FEE_BPS=3                     # Protocol-fixed. Do not modify.\n`;
@@ -52,7 +52,7 @@ export const generateManifest = async (config: NodeConfig) => {
     envFile += `WC_USDC_COLLATERAL=${config.usdcCollateral ?? 0}\n`;
     envFile += `WC_OPERATOR_REWARD_ADDRESS=${config.operatorRewardAddress ?? ''}\n`;
     if (tier === 'tier1') {
-      envFile += `WC_DAILY_VOLUME_CAP=${dailyCap}              # Tier 1 cap in USD\n`;
+      envFile += `WC_DAILY_THROUGHPUT_CAP_BYTES=${dailyCap}    # Tier 1 cap in bytes (50 MB / 24h epoch)\n`;
       if (config.tier2PeerId) {
         envFile += `WC_TIER2_PEER_ID=${config.tier2PeerId}   # Backbone spillover peer\n`;
       }
@@ -104,7 +104,7 @@ export const generateManifest = async (config: NodeConfig) => {
       `--wave-collateral=\${WC_WAVE_COLLATERAL}`,
       `--usdc-collateral=\${WC_USDC_COLLATERAL}`,
       `--reward-address=\${WC_OPERATOR_REWARD_ADDRESS}`,
-      config.facilitatorTier === 'tier1' ? `--daily-cap=\${WC_DAILY_VOLUME_CAP}` : '',
+      config.facilitatorTier === 'tier1' ? `--daily-cap-bytes=\${WC_DAILY_THROUGHPUT_CAP_BYTES}` : '',
       config.tier2PeerId ? `--tier2-peer=\${WC_TIER2_PEER_ID}` : '',
     ].filter(Boolean).join(' ');
   }
@@ -273,7 +273,7 @@ maximum censorship resistance:
   Chainlink (WAVE/USD):  https://feeds.chain.link/wave-usd
   Pyth Network:          https://hermes.pyth.network/v2/updates/price/latest
 
-basis=$100,000 USD fiat peg is enforced by the protocol layer, not this config.
+Facilitator throughput cap (50 MB/day) is enforced by the protocol layer, not this config.
 `;
     zip.file('README.md', readme);
   }
