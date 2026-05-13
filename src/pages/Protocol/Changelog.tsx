@@ -30,9 +30,28 @@ const typeStyle: Record<EntryType, { color: string; label: string }> = {
 
 const releases: Release[] = [
   {
+    version: 'v4.0.1',
+    date: 'May 2026',
+    label: 'ISO 20022 Hardening & PQC Crypto-Agility',
+    summary: 'The Stabilization & Hardening release introduces Metadata Blinding via salted SHA3-256 hashing, Post-Quantum signature versioning via bit-mask, and the Institutional Enforcement Policy. This release eliminates the Marketing-Technical Desync and aligns the protocol\'s on-chain architecture with its documentation.',
+    badge: 'Stable',
+    badgeClass: 'badge-teal',
+    icon: <Lock size={20} />,
+    entries: [
+      { type: 'feature', text: 'ISO 20022 Metadata Blinding: TideBlock header now stores a salted SHA3-256 hash (iso_metadata_hash) of the ISO 20022 payload. Raw metadata is never stored on-chain — it is retained off-chain by the Vehicle (BrikFi) in an HSM-backed escrow.' },
+      { type: 'feature', text: 'Post-Quantum Crypto-Agility: TideBlock header now includes a signature_version_mask (u8 bit-mask) supporting hybrid BLS12-381 + FIPS 204 ML-DSA validation without hard fork.' },
+      { type: 'compliance', text: 'Institutional Enforcement Policy: BrikFi Facilitator Nodes must provide iso_metadata_hash on every TideBlock. Non-institutional (retail/DeFi) blocks are exempt.' },
+      { type: 'compliance', text: 'Signature Downgrade Protection: check_signature_completeness rejects Hybrid (0x03) blocks that provide only a single signature component.' },
+      { type: 'compliance', text: 'SEC Rule 17a-4 Human-Readable Manifest: WORM audit trail now accompanied by a narrative manifest and Tool Provenance Hash per FINRA May 2026 guidance.' },
+      { type: 'feature', text: 'x402 Server: X-ISO-Metadata-Hash HTTP header extraction for blind pass-through of blinded ISO hashes from Vehicle to consensus layer.' },
+      { type: 'feature', text: 'Cross-platform provenance verification scripts (verify_provenance.ps1/.sh) for independent auditor WORM verification.' },
+      { type: 'fix', text: 'Marketing-Technical Desync: Website and whitepaper copy updated to accurately reflect the blinded hash architecture. No claim of raw XML processing on-chain.' },
+    ],
+  },
+  {
     version: 'v4.0.0',
     date: 'April 2026',
-    label: 'Current Mainnet Release',
+    label: 'Foundation Release',
     summary: 'The foundational v4.0 architecture introduces Dynamic Threshold Committees, Redundant Equivalency for SEC 17a-4 compliance, and the Agentic x402 Settlement Layer. This release represents a complete architectural overhaul from the v3.x consensus model.',
     badge: 'Stable',
     badgeClass: 'badge-teal',
@@ -44,7 +63,7 @@ const releases: Release[] = [
       { type: 'feature', text: 'WAVE-S Standard (v1.0): Protocol-level smart contract interface for SEC-regulated RWA instruments. Enforces KYC whitelist, forced clawbacks, and 1099-DA event emission.' },
       { type: 'feature', text: 'Fiat-Pegged Dynamic Minimum: Validator stake minimum is now $100,000 USD fiat-equivalent, oracle-adjusted in real-time. Removes token-price dependency from security model.' },
       { type: 'compliance', text: 'GENIUS Act Technology Provider compliance posture formalized. Protocol does not hold funds, assert counterparty relationships, or perform AML screening.' },
-      { type: 'compliance', text: 'ISO 20022 Fedwire mandate (March 2025) readiness: pacs.008, camt.054, pain.001 natively supported. purposeCode and creditorLEI are mandatory protocol fields.' },
+      { type: 'compliance', text: 'ISO 20022 Fedwire mandate (March 2025) readiness: pacs.008, camt.054, pain.001 natively supported. purposeCode and creditorLEI are mandatory protocol fields, cryptographically bound via blinded hash.' },
       { type: 'compliance', text: 'FIT21 Digital Commodity classification affirmed for $WAVE. Restricted Utility Pool smart contract prohibits dividend distributions by architecture.' },
       { type: 'breaking', text: 'v3.x Validator staking contracts are incompatible. All nodes must migrate to v4.0 DTC staking contracts. Migration guide available via institutional onboarding.' },
       { type: 'breaking', text: 'Legacy Archive node configuration deprecated. All Archive nodes must pair with a Validator node for Redundant Equivalency compliance.' },
@@ -92,7 +111,7 @@ const releases: Release[] = [
     entries: [
       { type: 'feature', text: 'Archive Node role introduced: Read-only compliance nodes that pipe network state into software-defined WORM storage (e.g., AWS S3 Object Lock, Azure Immutable Blob).' },
       { type: 'compliance', text: 'SEC Rule 17a-4 Software WORM compliance architecture documented. Merkle-chained audit trail with 6-year retention policy enforced at configuration layer.' },
-      { type: 'feature', text: 'Compliance payload v2: Structured ISO 20022 metadata now embedded in every transaction\'s on-chain record.' },
+      { type: 'feature', text: 'Compliance payload v2: Structured ISO 20022 metadata embedded in every transaction\'s compliance record. Note: v4.0.1 transitioned this to a blinded hash architecture.' },
       { type: 'breaking', text: 'Validator nodes must now broadcast to at least one registered Archive node per epoch. Isolated validators will be slashed in v3.2+.' },
       { type: 'fix', text: 'Fixed Archive node sync lag under high-throughput conditions.' },
     ],
@@ -151,7 +170,7 @@ export default function Changelog() {
           regulatory impact, compliance additions, and architectural changes.
         </p>
         <div style={{ display: 'flex', gap: 12, marginBottom: 48, flexWrap: 'wrap' }}>
-          <span className="badge badge-teal"><CheckCircle size={10} /> Current: v4.0.0</span>
+          <span className="badge badge-teal"><CheckCircle size={10} /> Current: v4.0.1</span>
           <span className="badge badge-blue">Mainnet Active</span>
           <span className="badge badge-amber"><AlertCircle size={10} /> v3.x End of Life</span>
         </div>
