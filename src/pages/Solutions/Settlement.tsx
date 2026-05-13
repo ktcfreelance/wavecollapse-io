@@ -17,7 +17,7 @@ const fedwireSteps = [
   {
     step: '01',
     title: 'Client Application Initiates',
-    desc: 'Institution initiates a payment via the WaveCollapse SDK. The ISO 20022 pacs.008 message is constructed with mandatory purposeCode and creditorLEI metadata.',
+    desc: 'Institution initiates a payment via the WaveCollapse SDK. The ISO 20022 pacs.008 message is constructed at the application layer with mandatory purposeCode and creditorLEI metadata. A blinded SHA3-256 hash of this metadata is injected into the settlement request.',
     icon: <Globe size={18} />,
   },
   {
@@ -47,7 +47,7 @@ const fedwireSteps = [
 ];
 
 const complianceFeatures = [
-  { label: 'ISO 20022 Native', detail: 'pacs.008, camt.054, pain.001 message types natively supported. purposeCode and creditorLEI are mandatory fields enforced at the protocol layer.', badge: 'Fedwire Mandate' },
+  { label: 'ISO 20022 Native', detail: 'pacs.008, camt.054, pain.001 message types are natively supported. purposeCode and creditorLEI are cryptographically bound to the TideBlock\u2122 header via a blinded SHA3-256 hash, enforced at the protocol layer for institutional nodes. Raw metadata is retained off-chain by the application layer.', badge: 'Fedwire Mandate' },
   { label: 'Software-Defined 17a-4', detail: 'Every cleared transaction is committed to a software-defined WORM store via Archive nodes within 1.5s. Immutable, hardware-independent, auditor-accessible.', badge: 'WORM Compliant' },
   { label: 'Byzantine Anomaly Detection (BAD)', detail: 'Advanced Graph Neural Networks continually monitor validator behavior, identifying and isolating Sybil attacks and collusion formations via active immune response.', badge: 'Intelligence Layer' },
   { label: 'GENIUS Act Shield', detail: 'WaveCollapse operates strictly as a Technology Provider. All AML/KYC obligations remain with the Client Application. Protocol does not take custody.', badge: 'Tech Provider' },

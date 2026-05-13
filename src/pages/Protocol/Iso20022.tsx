@@ -6,16 +6,17 @@ export default function Iso20022() {
     <div className="container section">
       <SEOHead
         title="ISO 20022 Native Messaging"
-        description="WaveCollapse v4.0 natively encodes every settlement message in ISO 20022 XML. purposeCode and creditorLEI are mandatory protocol-level fields on every state transition."
+        description="WaveCollapse v4.0 cryptographically binds ISO 20022 compliance metadata to every institutional settlement via a salted SHA3-256 hash in the TideBlock header. Raw metadata is retained off-chain by the application layer."
         path="/protocol/iso20022"
       />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <span className="section-label">Protocol / ISO 20022</span>
         <h1>ISO 20022 <span style={{ color: 'var(--teal-400)' }}>Native Messaging</span></h1>
         <p style={{ maxWidth: 640, marginTop: 12, marginBottom: 32 }}>
-          WaveCollapse v4.0 natively encodes every settlement message in ISO 20022 XML format.
-          The mandatory <code>purposeCode</code> and <code>creditorLEI</code> fields are protocol-required
-          on every state transition — not optional metadata.
+          WaveCollapse v4.0 cryptographically binds ISO 20022 compliance metadata to every institutional
+          settlement via a quantum-resistant salted hash in the TideBlock™ header. The mandatory <code>purposeCode</code> and <code>creditorLEI</code> fields
+          are constructed at the application layer and their blinded <code>SHA3-256</code> hash is enforced at the protocol layer for
+          institutional nodes &mdash; the Rail never sees raw financial intent.
         </p>
         <div className="terminal-block" style={{ maxWidth: 680 }}>
           <div className="terminal-header">
