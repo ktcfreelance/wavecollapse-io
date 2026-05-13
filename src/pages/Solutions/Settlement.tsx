@@ -91,6 +91,7 @@ export default function Settlement() {
           <span className="badge badge-teal"><Zap size={10} /> x402 Settlement Layer</span>
           <span className="badge badge-blue">ISO 20022 Native</span>
           <span className="badge badge-amber">SEC Rule 17a-4 Compliant</span>
+          <span className="badge badge-blue"><Lock size={10} /> PQC-Ready (FIPS 204)</span>
         </div>
 
         {/* ── SLA Metrics ── */}
